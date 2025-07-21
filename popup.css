@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  width: 320px;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.light {
+  background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+  color: #333;
+}
+
+body.dark {
+  background: linear-gradient(135deg, #1e1e1e 0%, #2c2c2c 100%);
+  color: #f1f1f1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.container {
+  padding: 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+  text-align: center;
+}
+
+button#getTitle {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+body.light button#getTitle {
+  background: #fff;
+  color: #333;
+}
+
+body.dark button#getTitle {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+button#getTitle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.loading {
+  font-size: 14px;
+  opacity: 0.8;
+  display: none;
+}
+
+.loading.show {
+  display: block;
+}
+
+#titleDisplay {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  display: none;
+}
+
+body.light #titleDisplay {
+  background: rgba(0,0,0,0.05);
+  border-left: 4px solid #333;
+  color: #333;
+}
+
+body.dark #titleDisplay {
+  background: rgba(255,255,255,0.05);
+  border-left: 4px solid #999;
+  color: #f1f1f1;
+}
+
+#titleDisplay.show {
+  display: block;
+  animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.title-label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.title-text {
+  font-size: 16px;
+  word-break: break-word;
+}
+
+.theme-toggle, .close-btn {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.theme-toggle img,
+.close-btn img {
+  width: 100%;
+  height: auto;
+  filter: invert(1);
+}
+
+body.light .theme-toggle img,
+body.light .close-btn img {
+  filter: invert(0);
+}

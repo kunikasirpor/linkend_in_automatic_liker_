@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tab Title Picker</title>
+  <link rel="stylesheet" href="popup.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body class="light">
+  <div class="header">
+    <div class="theme-toggle">
+      <img id="modeIcon" src="moon.png" alt="Toggle Theme" width="24" />
+    </div>
+    <div class="close-btn">
+      <img id="closeBtn" src="close.png" alt="Close" width="20" />
+    </div>
+  </div>
+  <div class="container">
+    <h1>Tab Title Picker</h1>
+    <p class="subtitle">Click to fetch the current tab's title</p>
+    <button id="getTitle">Get Tab Title</button>
+    <div class="loading" id="loading">Fetching title...</div>
+    <div id="titleDisplay">
+      <div class="title-label">Current Tab Title:</div>
+      <div class="title-text" id="titleText"></div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
