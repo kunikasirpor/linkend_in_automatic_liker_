@@ -11,6 +11,13 @@ This Chrome extension automates liking and commenting on LinkedIn posts based on
 - Simple, clean popup UI
 - LinkedIn profile scraping (for future tasks)
 
+## 🖼 UI Preview
+
+Here’s how the extension popup looks:
+
+![LinkedIn Feed Interactor UI](ui-preview.png)
+
+
 ## 🛠 Tech Stack
 
 - **JavaScript**
