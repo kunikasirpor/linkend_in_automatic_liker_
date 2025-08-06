@@ -23,7 +23,7 @@ Here’s how the extension popup looks:
 - **JavaScript**
 - **HTML + CSS**
 - **Chrome Extension (Manifest V3)**
-- **Express + Sequelize + PostgreSQL** (backend integration)
+- **Express + Sequelize** 
 
 ## How It Works
 
