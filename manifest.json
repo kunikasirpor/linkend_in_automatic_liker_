@@ -1,21 +1,33 @@
 {
   "manifest_version": 3,
-  "name": "Tab Title Extractor",
+  "name": "LinkedIn Scraper",
   "version": "1.0",
-  "description": "Extract and display current tab information",
-  "permissions": ["tabs", "activeTab"],
+  "description": "Auto-like and comment on LinkedIn feed posts.",
+  "permissions": [
+    "scripting",
+    "tabs",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.linkedin.com/*"
+  ],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": {
-      "16": "icon.png",
-      "32": "icon.png",
-      "48": "icon.png",
-      "128": "icon.png"
-    }
+    "default_icon": "icon.png"
   },
+  "background": {
+    "service_worker": "background.mjs",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["content.js" ],
+      "run_at": "document_idle"
+    }
+  ],
   "icons": {
     "16": "icon.png",
-    "32": "icon.png",
     "48": "icon.png",
     "128": "icon.png"
   }

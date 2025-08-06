@@ -5,12 +5,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.4s ease, color 0.4s ease;
+  overflow: hidden;
 }
 
 body.light {
   background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
-  color: #333;
+  color: #2b2b2b;
 }
 
 body.dark {
@@ -22,7 +23,7 @@ body.dark {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 12px 20px;
 }
 
 .container {
@@ -37,22 +38,30 @@ h1 {
   margin: 0;
   font-size: 24px;
   font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  animation: floatIn 0.6s ease-out;
 }
 
 .subtitle {
   font-size: 14px;
   opacity: 0.8;
   text-align: center;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+  animation: fadeInUp 0.6s ease;
 }
 
 button#getTitle {
-  padding: 10px 20px;
+  padding: 10px 24px;
   font-size: 15px;
   font-weight: 500;
   border: none;
   border-radius: 25px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 body.light button#getTitle {
@@ -70,10 +79,17 @@ button#getTitle:hover {
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
+button#getTitle:active {
+  transform: scale(0.97);
+}
+
 .loading {
   font-size: 14px;
-  opacity: 0.8;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
   display: none;
+  animation: fadeInUp 0.6s ease-in-out infinite alternate;
 }
 
 .loading.show {
@@ -82,9 +98,13 @@ button#getTitle:hover {
 
 #titleDisplay {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 14px 16px;
+  border-radius: 10px;
   display: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transform: translateY(10px);
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
 }
 
 body.light #titleDisplay {
@@ -101,23 +121,20 @@ body.dark #titleDisplay {
 
 #titleDisplay.show {
   display: block;
-  animation: fadeInUp 0.4s ease;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .title-label {
   font-weight: 600;
   font-size: 14px;
   margin-bottom: 6px;
+  letter-spacing: 0.4px;
 }
 
 .title-text {
   font-size: 16px;
   word-break: break-word;
+  line-height: 1.5;
+  animation: floatIn 0.6s ease-out;
 }
 
 .theme-toggle, .close-btn {
@@ -136,4 +153,27 @@ body.dark #titleDisplay {
 body.light .theme-toggle img,
 body.light .close-btn img {
   filter: invert(0);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

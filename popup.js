@@ -1,37 +1,60 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const body = document.body;
-  const modeIcon = document.getElementById('modeIcon');
-  const closeBtn = document.getElementById('closeBtn');
-  const getTitleBtn = document.getElementById('getTitle');
-  const loading = document.getElementById('loading');
-  const titleDisplay = document.getElementById('titleDisplay');
-  const titleText = document.getElementById('titleText');
+document.addEventListener("DOMContentLoaded", () => {
+  const likeInput = document.getElementById("likeCount");
+  const commentInput = document.getElementById("commentCount");
+  const startBtn = document.getElementById("startFeed");
 
-  let isDark = false; 
+  let isRunning = false;
 
-  const updateTheme = () => {
-    if (isDark) {
-      body.classList.replace('light', 'dark');
-      modeIcon.src = 'sun.png'; 
-    } else {
-      body.classList.replace('dark', 'light');
-      modeIcon.src = 'moon.png'; 
+  function checkInputs() {
+    const hasLikeValue = likeInput.value.trim() !== "";
+    const hasCommentValue = commentInput.value.trim() !== "";
+    startBtn.disabled = isRunning || !hasLikeValue || !hasCommentValue;
+  }
+
+  likeInput.addEventListener("input", checkInputs);
+  commentInput.addEventListener("input", checkInputs);
+
+  startBtn.addEventListener("click", async () => {
+    if (isRunning) return;
+
+    isRunning = true;
+    startBtn.disabled = true;
+    startBtn.textContent = "Running...";
+
+    try {
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+      if (!tab.url.includes('linkedin.com')) {
+        alert('Please navigate to LinkedIn first!');
+        return;
+      }
+
+      await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: ["content.js"],
+      });
+
+      chrome.tabs.sendMessage(tab.id, {
+        action: "startInteraction",
+        likeCount: parseInt(likeInput.value) || 0,
+        commentCount: parseInt(commentInput.value) || 0,
+      });
+
+      setTimeout(() => {
+        isRunning = false;
+        startBtn.disabled = false;
+        startBtn.textContent = "Start Feed Interaction";
+        checkInputs();
+      }, 30000);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error: ' + error.message);
+      isRunning = false;
+      startBtn.disabled = false;
+      startBtn.textContent = "Start Feed Interaction";
+      checkInputs();
     }
-  };
-
-  document.querySelector('.theme-toggle').addEventListener('click', () => {
-    isDark = !isDark;
-    updateTheme();
   });
 
-  closeBtn.addEventListener('click', () => window.close());
-
-  getTitleBtn.addEventListener('click', async () => {
-    loading.classList.add('show');
-    titleDisplay.classList.remove('show');
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    loading.classList.remove('show');
-    titleText.textContent = tab?.title ?? 'Unable to get tab title';
-    titleDisplay.classList.add('show');
-  });
+  checkInputs();
 });
